@@ -1,238 +1,70 @@
-// import React, { useState } from "react";
-// import { Text, View } from "react-native";
-// import { Styles } from "../styles/GlobalStyle";
-// import Button, { Button0, ButtonWhite } from "./Button";
-// import { Colors } from "../styles/Color";
-
-
-// export default function Keyboard() {
-//     const [firstNumber, setFirstNumber] = useState('');
-//     const [secondNumber, setSecondNumber] = useState('');
-//     const [operation, setOperation] = useState('');
-//     const [result, setResult] = useState<Number | null>(0);
-
-//     const handleNumberPress = (buttonValue: string) => {
-//         if (firstNumber.length < 10) {
-//             setFirstNumber(firstNumber + buttonValue);
-//         }
-//     }
-
-//     const handleOperationPress = (buttonValue: string) => {
-//         setOperation(buttonValue);
-//         setSecondNumber(firstNumber);
-//         setFirstNumber('');
-//     }
-
-//     const clear = () => {
-//         setFirstNumber('');
-//         setSecondNumber('');
-//         setOperation('');
-//         setResult(null);
-//     }
-
-//     const handleResult = () => {
-//         switch (operation) {
-//             case '+':
-//                 clear();
-//                 if (!isNaN(parseInt(firstNumber)) && !isNaN(parseInt(secondNumber))) {
-//                     setResult((parseInt(secondNumber) + parseInt(firstNumber)));
-//                 }
-//                 break;
-//             case '-':
-//                 clear();
-//                 if (!isNaN(parseInt(firstNumber)) && !isNaN(parseInt(secondNumber))) {
-//                     setResult((parseInt(secondNumber) - parseInt(firstNumber)));
-//                 }
-//                 break;
-//             case '*':
-//                 clear();
-//                 if (!isNaN(parseInt(firstNumber)) && !isNaN(parseInt(secondNumber))) {
-//                     setResult((parseInt(secondNumber) * parseInt(firstNumber)));
-//                 }
-//                 break;
-//             case '/':
-//                 clear();
-//                 if (!isNaN(parseInt(firstNumber)) && !isNaN(parseInt(secondNumber))) {
-//                     setResult((parseInt(secondNumber) / parseInt(firstNumber)));
-//                 }
-//                 break;
-//             case 'default':
-//                 clear();
-//                 setResult(0);
-//                 break;
-//         }
-//     }
-
-//     const displayFirstNumber = () => {
-//         if (result) {
-//             return (
-//                 <Text style={parseInt(result.toString()) < 9999 ? [Styles.screenFirstNumber, { color: Colors.orange }] : [Styles.screenFirstNumber, { fontSize: 50, color: Colors.orange }]}> {result?.toString()} </Text>
-//             )
-//         }
-//         if (firstNumber && firstNumber.length < 6) {
-//             return (
-//                 <Text style={Styles.screenFirstNumber}> {firstNumber} </Text>
-//             )
-//         }
-//         if (firstNumber === '') {
-//             return (
-//                 <Text style={Styles.screenFirstNumber}> 0 </Text>
-//             )
-//         }
-//         if (firstNumber.length > 5 && firstNumber.length < 8) {
-//             return (
-//                 <Text style={[Styles.screenFirstNumber, { fontSize: 70 }]}> {firstNumber} </Text>
-//             )
-//         }
-//         if (firstNumber.length > 7) {
-//             return (
-//                 <Text style={[Styles.screenFirstNumber, { fontSize: 50 }]}> {firstNumber} </Text>
-//             )
-//         }
-//     }
-
-//     console.log(firstNumber + ' ' + secondNumber + " " + result)
-
-//     return (
-//         <>
-//             <View style={Styles.viewBottom}>
-//                 <View style={{
-//                     height: 120,
-//                     width: '90%',
-//                     justifyContent: 'flex-end',
-//                     alignSelf: 'center',
-//                 }}>
-//                     <Text style={Styles.screenSecondNumber}>
-//                         {secondNumber}
-//                         <Text style={{
-//                             color: 'purple',
-//                             fontSize: 50,
-//                             fontWeight: '500'
-//                         }}>
-//                             {operation}
-//                         </Text>
-//                     </Text>
-//                     {displayFirstNumber()}
-//                 </View>
-
-//                 <View style={Styles.row}>
-//                     <Button
-//                         title='C'
-//                         isGray
-//                         onPress={clear} />
-//                     <Button
-//                         title='+/-'
-//                         isGray
-//                         onPress={() => handleOperationPress('+/-')} />
-//                     <Button
-//                         title='%'
-//                         isGray
-//                         onPress={() => handleOperationPress('%')} />
-//                     <ButtonWhite
-//                         title='÷'
-//                         isOrange
-//                         onPress={() => handleOperationPress('/')} />
-//                 </View>
-
-//                 <View style={Styles.row}>
-//                     <Button
-//                         title='7'
-//                         onPress={() => handleNumberPress('7')} />
-//                     <Button
-//                         title='8'
-//                         onPress={() => handleNumberPress('8')} />
-//                     <Button
-//                         title='9'
-//                         onPress={() => handleNumberPress('9')} />
-//                     <Button
-//                         title='x'
-//                         isOrange
-//                         onPress={() => handleOperationPress('*')} />
-//                 </View>
-
-//                 <View style={Styles.row}>
-//                     <Button
-//                         title='4'
-//                         onPress={() => handleNumberPress('4')} />
-//                     <Button
-//                         title='5'
-//                         onPress={() => handleNumberPress('5')} />
-//                     <Button
-//                         title='6'
-//                         onPress={() => handleNumberPress('6')} />
-//                     <Button
-//                         title='-'
-//                         isOrange
-//                         onPress={() => handleOperationPress('-')} />
-//                 </View>
-
-//                 <View style={Styles.row}>
-//                     <Button
-//                         title='1'
-//                         onPress={() => handleNumberPress('1')} />
-//                     <Button
-//                         title='2'
-//                         onPress={() => handleNumberPress('2')} />
-//                     <Button
-//                         title='3'
-//                         onPress={() => handleNumberPress('3')} />
-//                     <Button
-//                         title='+'
-//                         isOrange
-//                         onPress={() => handleOperationPress('+')} />
-//                 </View>
-
-//                 <View style={Styles.row}>
-//                     <Button0
-//                         title='0'
-//                         onPress={() => handleNumberPress('0')} />
-//                     <Button
-//                         title=','
-//                         onPress={() => setFirstNumber(firstNumber.slice(0, -1))} />
-//                     <Button
-//                         title='='
-//                         isOrange
-//                         onPress={() => handleResult()} />
-//                 </View>
-//             </View>
-//         </>
-//     )
-// }
-
-
-
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Text, View } from "react-native";
 import { Styles } from "../styles/GlobalStyle";
 import Button, { Button0, ButtonWhite } from "./Button";
 import { Colors } from "../styles/Color";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Keyboard() {
 
     const [theme, setTheme] = useState('light');
 
-    const [result, setResult] = useState('');
-    const [operator, setOperator] = useState('');
-    const onButtonClick = (e: any) => {
-        if (e == '=') {
-            return calculateResult();
+    const [list, setList] = useState([
+        {
+            operator: '', 
+            result: ''
         }
-        setResult(result + e);
-    };
+    ]);
 
-    const calculateResult = () => {
-        setOperator(eval(result));
-    };
-
+    const operatorButton = ["*", "-", "+", "/"]
     const onOperationClick = (e: any) => {
+        const lastItem = list.length === 0 ? null : list[list.length - 1]
         if (e == "C") {
-            setResult("");
-            setOperator('0');
+            setList([{ operator: '', result: '' }]);
             return;
         }
-        if (e.includes(result.toString().split("").pop())) return;
-        setResult(result + e);
+        if (e == "=") {
+            if (!lastItem) return;
+            if (lastItem) {
+                const length = list.length;
+                try {
+                    list[length - 1].result = eval(list[length - 1].operator).toString();
+
+                } catch (error) {
+                    list[length - 1].result = "0"
+                }
+                setList([...list])
+                // Lưu trữ một chuỗi vào AsyncStorage
+                // AsyncStorage.setItem(key, "value");
+                // AsyncStorage.getItem(key, callback);
+
+            }
+            return;
+        }
+
+        if (!lastItem) return setList([{ operator: e, result: "" }])
+        if (lastItem && lastItem.result) {
+            if (operatorButton.includes(e))
+                return setList([...list, { operator: lastItem?.result + e, result: "" }])
+            else return setList([...list, { operator: e, result: "" }])
+        };
+
+        if (lastItem && !lastItem.result) {
+            const newLast = { ...lastItem };
+            newLast.operator = newLast.operator + e;
+            const newList = [...list];
+            newList.pop();
+            newList.push(newLast);
+            setList(newList);
+        }
     };
+
+    //button xoa key
+    // AsyncStorage.removeItem(key);
+
+    const resultItem = list.length === 0 ? null : list[list.length - 1];
+
+    console.log(list);
 
     return (
         <>
@@ -245,14 +77,14 @@ export default function Keyboard() {
                 }}>
                     <Text style={Styles.screenSecondNumber}>
                         <Text>
-                            {result}
+                            {resultItem?.operator}
                         </Text>
                     </Text>
                     <Text style={Styles.screenSecondNumber}>
                         <Text style={
                             theme === 'light' ? Styles.bigtextLight : Styles.bigtextDark
                         }>
-                            {operator}
+                            {resultItem?.result}
                         </Text>
                     </Text>
                 </View>
@@ -279,13 +111,13 @@ export default function Keyboard() {
                 <View style={Styles.row}>
                     <Button
                         title='7'
-                        onPress={() => onButtonClick(7)} />
+                        onPress={() => onOperationClick(7)} />
                     <Button
                         title='8'
-                        onPress={() => onButtonClick(8)} />
+                        onPress={() => onOperationClick(8)} />
                     <Button
                         title='9'
-                        onPress={() => onButtonClick(9)} />
+                        onPress={() => onOperationClick(9)} />
                     <Button
                         title='x'
                         isOrange
@@ -295,13 +127,13 @@ export default function Keyboard() {
                 <View style={Styles.row}>
                     <Button
                         title='4'
-                        onPress={() => onButtonClick(4)} />
+                        onPress={() => onOperationClick(4)} />
                     <Button
                         title='5'
-                        onPress={() => onButtonClick(5)} />
+                        onPress={() => onOperationClick(5)} />
                     <Button
                         title='6'
-                        onPress={() => onButtonClick(6)} />
+                        onPress={() => onOperationClick(6)} />
                     <Button
                         title='-'
                         isOrange
@@ -311,13 +143,13 @@ export default function Keyboard() {
                 <View style={Styles.row}>
                     <Button
                         title='1'
-                        onPress={() => onButtonClick(1)} />
+                        onPress={() => onOperationClick(1)} />
                     <Button
                         title='2'
-                        onPress={() => onButtonClick('2')} />
+                        onPress={() => onOperationClick('2')} />
                     <Button
                         title='3'
-                        onPress={() => onButtonClick('3')} />
+                        onPress={() => onOperationClick('3')} />
                     <Button
                         title='+'
                         isOrange
@@ -327,14 +159,14 @@ export default function Keyboard() {
                 <View style={Styles.row}>
                     <Button0
                         title='0'
-                        onPress={() => onButtonClick('0')} />
+                        onPress={() => onOperationClick('0')} />
                     <Button
                         title=','
-                        onPress={() => onButtonClick('.')} />
+                        onPress={() => onOperationClick('.')} />
                     <Button
                         title='='
                         isOrange
-                        onPress={() => onButtonClick('=')} />
+                        onPress={() => onOperationClick('=')} />
                 </View>
             </View>
         </>
